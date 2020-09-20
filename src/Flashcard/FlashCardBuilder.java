@@ -58,7 +58,21 @@ public class FlashCardBuilder {
         mainPanel.add(aJLabel);
         mainPanel.add(aJScrollPane);
         mainPanel.add(nextButton);
-        nextButton.addActionListener(new nextCardListener());
+        nextButton.addActionListener(new NextCardListener());
+
+
+        //Menubar
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem newMenuItem = new JMenuItem("New");
+
+        JMenuItem saveMenuItem = new JMenuItem("Save");
+
+        // Add eventListeners
+        newMenuItem.addActionListener(new NewMenuItemListener());
+        saveMenuItem.addActionListener(new SaveMenuItemListener());
+
+
 
 
         // Add to the frame
@@ -79,12 +93,29 @@ public class FlashCardBuilder {
 
     }
 
-    class nextCardListener implements ActionListener{
+    class NextCardListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             System.out.println("Button Clicked");
         }
     }
+
+    class NewMenuItemListener implements ActionListener
+    {
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            System.out.println("New file created");
+        }
+    }
+
+    class SaveMenuItemListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            System.out.println("Item saved");
+        }
+    }
+
 
 }
