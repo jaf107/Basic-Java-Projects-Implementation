@@ -65,8 +65,12 @@ public class FlashCardBuilder {
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         JMenuItem newMenuItem = new JMenuItem("New");
-
         JMenuItem saveMenuItem = new JMenuItem("Save");
+
+        fileMenu.add(newMenuItem);
+        fileMenu.add(saveMenuItem);
+
+        menuBar.add(fileMenu);
 
         // Add eventListeners
         newMenuItem.addActionListener(new NewMenuItemListener());
@@ -79,6 +83,7 @@ public class FlashCardBuilder {
         frame.getContentPane().add(BorderLayout.CENTER,mainPanel);
         frame.setSize(500,600);
         frame.setVisible(true);
+        frame.setJMenuBar(menuBar);
 
 
     }
