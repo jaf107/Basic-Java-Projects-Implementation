@@ -4,7 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class FlashCardBuilder {
     private JTextArea question;
@@ -46,6 +50,8 @@ public class FlashCardBuilder {
 
         JButton nextButton = new JButton("Next Card");
 
+        cardList = new ArrayList<FlashCard>();
+
 
         // Create a few labels
         JLabel qJLabel = new JLabel("Question");
@@ -64,6 +70,7 @@ public class FlashCardBuilder {
         //Menubar
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
+
         JMenuItem newMenuItem = new JMenuItem("New");
         JMenuItem saveMenuItem = new JMenuItem("Save");
 
@@ -102,8 +109,18 @@ public class FlashCardBuilder {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            System.out.println("Button Clicked");
+//            Todo: Create a flashcard
+            FlashCard card = new FlashCard(question.getText(),answer.getText());
+            cardList.add(card);
+            clearCard();
+
         }
+    }
+
+    private void clearCard() {
+        question.setText("");
+        answer.setText("");
+        question.requestFocus();
     }
 
     class NewMenuItemListener implements ActionListener
@@ -118,7 +135,33 @@ public class FlashCardBuilder {
     class SaveMenuItemListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            System.out.println("Item saved");
+            FlashCard card = new FlashCard(question.getText(),answer.getText());
+            cardList.add(card);
+
+            // Create a file dialog with file chooser
+            JFileChooser fileSave = new JFileChooser();
+            fileSave.showSaveDialog(frame);
+            saveFile(fileSave.getSelectedFile());
+        }
+    }
+
+    private void saveFile(File selectedFile) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(selectedFile));
+
+            Iterator<FlashCard> cardIterator = cardList.iterator();
+            while (cardIterator.hasNext()) {
+                FlashCard card = (FlashCard) cardIterator.next();
+                writer.write(card.getQuestion()+ "/");
+                writer.write( card.getAnswer()+"\n");
+
+                // Format to be like this: Where's Dhaka/Bangladesh
+            }
+
+
+
+        } catch (Exception e) {
+            System.out.println("Couldn't make a card");
         }
     }
 
