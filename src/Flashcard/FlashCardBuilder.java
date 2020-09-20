@@ -2,6 +2,8 @@ package Flashcard;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class FlashCardBuilder {
@@ -56,6 +58,7 @@ public class FlashCardBuilder {
         mainPanel.add(aJLabel);
         mainPanel.add(aJScrollPane);
         mainPanel.add(nextButton);
+        nextButton.addActionListener(new nextCardListener());
 
 
         // Add to the frame
@@ -74,6 +77,14 @@ public class FlashCardBuilder {
             }
         });
 
-
     }
+
+    class nextCardListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            System.out.println("Button Clicked");
+        }
+    }
+
 }
